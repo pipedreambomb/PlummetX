@@ -1,8 +1,10 @@
-package uk.co.georgenixon;
+package Tests;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import uk.co.georgenixon.PlummetX.Board;
+import uk.co.georgenixon.PlummetX.ConsoleView;
+import uk.co.georgenixon.PlummetX.Tile;
 
 import java.io.PrintStream;
 
@@ -18,10 +20,10 @@ public class ConsoleViewTest {
         out = mock(PrintStream.class);
     }
 
-    @After
-    public void tearDown() throws Exception {
-
-    }
+//    @After
+//    public void tearDown() throws Exception {
+//
+//    }
 
     @Test
     public void two_by_one_Xs() throws Exception {
@@ -46,8 +48,7 @@ public class ConsoleViewTest {
 
         // Arrange
         Board board = mock(Board.class);
-        Tile tile = mock(Tile.class);
-        when(tile.getVisibleValue()).thenReturn('X');
+        Tile tile = Tile.createOpaque(1);
         Tile[] tiles = new Tile[] { tile};
         when(board.nextLine()).thenReturn(tiles).thenReturn(null);
         sut = new ConsoleView(out, board);

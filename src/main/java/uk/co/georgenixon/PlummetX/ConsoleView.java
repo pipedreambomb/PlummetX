@@ -1,4 +1,4 @@
-package uk.co.georgenixon;
+package uk.co.georgenixon.PlummetX;
 
 import java.io.PrintStream;
 
@@ -8,7 +8,7 @@ import java.io.PrintStream;
 public class ConsoleView implements View {
 
     private final PrintStream out;
-    private Board board;
+    private final Board board;
 
     public ConsoleView(PrintStream printStream, Board board) {
         this.out = printStream;
@@ -21,7 +21,8 @@ public class ConsoleView implements View {
         while ((line = board.nextLine()) != null) {
             StringBuilder sb = new StringBuilder("|");
             for (Tile tile : line) {
-                sb.append(tile.getVisibleValue() + "|");
+                sb.append(tile.getVisibleValue());
+                sb.append("|");
             }
             out.println(sb.toString());
         }

@@ -1,4 +1,4 @@
-package uk.co.georgenixon;
+package uk.co.georgenixon.PlummetX;
 
 /**
  * Created by g on 30/08/14.
