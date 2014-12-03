@@ -70,6 +70,17 @@ public class TileTests {
         assertThat(sut.getVisibleValue()).isEqualTo(tileValue.toString());
     }
 
-//    @Test
-//    public void Reveals_opaque_to_partial_to_clear(){}
+    @Test
+    public void Reveals_opaque_to_partial_to_clear(){
+
+        // Arrange
+        Tile sut = Tile.createOpaque(tileValue);
+
+        // Act
+        sut.destruct();
+        sut.destruct();
+
+        // Assert
+        assertThat(sut.getVisibleValue()).isEqualTo(tileValue.toString());
+    }
 }
