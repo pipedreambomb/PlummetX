@@ -130,7 +130,6 @@ public class ConsoleViewTests {
 
     @Test
     @Ignore
-    public void double_figured_tiles(){}
-
+    public void when_board_has_double_figured_max_then_columns_are_double_spaced(){}
 
 }

@@ -12,6 +12,11 @@ public class Tile {
         this.opacity = opacity;
     }
 
+
+    public static Tile createEmpty() {
+        return new Tile(0, TileOpacity.clear);
+    }
+
     public static Tile createOpaque(int value) {
         return new Tile(value, TileOpacity.opaque);
     }
@@ -19,6 +24,7 @@ public class Tile {
     public static Tile createPartiallyOpaque(int value) {
         return new Tile(value, TileOpacity.partial);
     }
+
     public static Tile createClear(Integer value) {
         return new Tile(value, TileOpacity.clear);
     }
@@ -30,7 +36,7 @@ public class Tile {
             case partial:
                 return "x";
             default:
-                return value.toString();
+                return this.isEmpty() ? " " : value.toString();
         }
     }
 
@@ -49,5 +55,9 @@ public class Tile {
             default:
                 this.value = 0;
         }
+    }
+
+    public boolean isEmpty() {
+        return this.value == 0;
     }
 }

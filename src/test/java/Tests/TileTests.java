@@ -1,5 +1,6 @@
 package Tests;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -96,6 +97,17 @@ public class TileTests {
         sut.destruct();
 
         // Assert
-        assertThat(sut.getVisibleValue()).isEqualTo("0");
+        assertTileIsDisplayingAsEmpty(sut);
+    }
+
+    private void assertTileIsDisplayingAsEmpty(Tile sut) {
+        assertThat(sut.getVisibleValue()).isEqualTo(" ");
+    }
+
+    @Test
+    public void when_tile_is_empty_visible_value_is_space(){
+        Tile sut = Tile.createEmpty();
+
+        assertTileIsDisplayingAsEmpty(sut);
     }
 }
