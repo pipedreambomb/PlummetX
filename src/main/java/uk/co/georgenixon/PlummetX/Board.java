@@ -7,4 +7,8 @@ public class Board {
     public Tile[] nextLine() {
         return new Tile[0];
     }
+
+    public int columnWidth() {
+        return 0;
+    }
 }

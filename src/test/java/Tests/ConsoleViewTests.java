@@ -63,10 +63,10 @@ public class ConsoleViewTests {
         verify(out).println("|X|");
     }
 
+    // Convenience method for creating a board without specifying column size
     private Board makeMockBoard(Tile[] tiles) {
-        Board board = mock(Board.class);
-        when(board.nextLine()).thenReturn(tiles).thenReturn(null);
-        return board;
+        // We don't care what the max tile value is, so default to 1 digit columns
+        return makeMockBoard(1, tiles);
     }
 
     @Test
@@ -129,7 +129,48 @@ public class ConsoleViewTests {
     }
 
     @Test
-    @Ignore
-    public void when_board_has_double_figured_max_then_columns_are_double_spaced(){}
+    public void when_board_has_double_figured_max_then_columns_are_double_spaced(){
+
+        // Arrange
+        Tile[] tiles = new Tile[] {
+                makeMockTile("12"),
+                makeMockTile(" "),
+                makeMockTile("x")
+        };
+        Board board = makeMockBoard(2, tiles);
+        ConsoleView sut = new ConsoleView(out, board);
+
+        // Act
+        sut.render();
+
+        // Assert
+        verify(out).println("|12|  | x|");
+    }
+
+    @Test
+    public void when_board_has_triple_figured_max_then_columns_are_triple_spaced(){
+
+        // Arrange
+        Tile[] tiles = new Tile[] {
+                makeMockTile("123"),
+                makeMockTile(" "),
+                makeMockTile("x")
+        };
+        Board board = makeMockBoard(3, tiles);
+        ConsoleView sut = new ConsoleView(out, board);
+
+        // Act
+        sut.render();
+
+        // Assert
+        verify(out).println("|123|   |  x|");
+    }
+
+    private Board makeMockBoard(int columnWidth, Tile[] tiles) {
+        Board board = mock(Board.class);
+        when(board.nextLine()).thenReturn(tiles).thenReturn(null);
+        when(board.columnWidth()).thenReturn(columnWidth);
+        return board;
+    }
 
 }
