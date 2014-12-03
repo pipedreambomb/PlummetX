@@ -1,7 +1,6 @@
 package Tests;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
 import uk.co.georgenixon.PlummetX.Board;
@@ -10,7 +9,7 @@ import uk.co.georgenixon.PlummetX.Tile;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -113,9 +112,7 @@ public class ConsoleViewTests {
 
         // Add a null tile list at end so iterating while loops terminate.
         List<Tile[]> answer = new ArrayList<Tile[]>();
-        for (Tile[] line : tiles) {
-            answer.add(line);
-        }
+        Collections.addAll(answer, tiles);
         answer.add(null);
 
         when(board.nextLine()).thenAnswer(AdditionalAnswers.returnsElementsOf(answer));

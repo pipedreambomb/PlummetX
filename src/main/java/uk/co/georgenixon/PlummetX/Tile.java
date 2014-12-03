@@ -57,7 +57,7 @@ public class Tile {
         }
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return this.value == 0;
     }
 }
