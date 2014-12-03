@@ -10,7 +10,7 @@ import java.io.PrintStream;
 
 import static org.mockito.Mockito.*;
 
-public class ConsoleViewTest {
+public class ConsoleViewTests {
 
     private ConsoleView sut;
     private PrintStream out;
@@ -83,11 +83,11 @@ public class ConsoleViewTest {
 
         //Arrange
         Board board = mock(Board.class);
+        Tile X = mock(Tile.class);
+        when(X.getVisibleValue()).thenReturn('X');
         Tile x = mock(Tile.class);
-        when(x.getVisibleValue()).thenReturn('X');
-        Tile o = mock(Tile.class);
-        when(o.getVisibleValue()).thenReturn('O');
-        Tile[][] boardData = new Tile[][] { {x, o, x}, {o, x, o}, {x, o, x}};
+        when(x.getVisibleValue()).thenReturn('x');
+        Tile[][] boardData = new Tile[][] { {X, x, X}, {x, X, x}, {X, x, X}};
         when(board.nextLine())
                 .thenReturn(boardData[0])
                 .thenReturn(boardData[1])
@@ -100,7 +100,7 @@ public class ConsoleViewTest {
         sut.render();
 
         // Assert
-        verify(out, times(2)).println("|X|O|X|");
-        verify(out).println("|O|X|O|");
+        verify(out, times(2)).println("|X|x|X|");
+        verify(out).println("|x|X|x|");
     }
 }
