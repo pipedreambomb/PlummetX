@@ -23,19 +23,15 @@ public class Tile {
         return new Tile(value, TileOpacity.clear);
     }
 
-    public char getVisibleValue() {
+    public String getVisibleValue() {
         switch (this.opacity) {
             case opaque:
-                return 'X';
+                return "X";
             case partial:
-                return 'x';
+                return "x";
             default:
-                return valueToChar();
+                return value.toString();
         }
-    }
-
-    private char valueToChar() {
-        return value.toString().charAt(0);
     }
 
     // Break apart or disappear depending on opacity, e.g.
@@ -43,6 +39,13 @@ public class Tile {
     // x -> 6
     // 6 -> <empty>
     public void destruct() {
-        this.opacity = TileOpacity.partial;
+        switch (this.opacity) {
+            case opaque:
+                this.opacity = TileOpacity.partial;
+                break;
+            default:
+                this.opacity = TileOpacity.clear;
+                break;
+        }
     }
 }

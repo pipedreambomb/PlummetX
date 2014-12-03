@@ -36,7 +36,7 @@ public class TileTests {
 
         Tile sut = Tile.createOpaque(tileValue);
 
-        assertThat(sut.getVisibleValue()).isEqualTo('X');
+        assertThat(sut.getVisibleValue()).isEqualTo("X");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TileTests {
 
         Tile sut = Tile.createPartiallyOpaque(tileValue);
 
-        assertThat(sut.getVisibleValue()).isEqualTo('x');
+        assertThat(sut.getVisibleValue()).isEqualTo("x");
     }
 
     @Test
@@ -52,15 +52,24 @@ public class TileTests {
 
         Tile sut = Tile.createClear(tileValue);
 
-        assertThat(sut.getVisibleValue()).isEqualTo(tileValue.toString().charAt(0));
+        assertThat(sut.getVisibleValue()).isEqualTo(tileValue.toString());
     }
 
-//    @Test
-//    public void Reveals_opaque_to_partial(){}
-//
-//    @Test
-//    public void Reveals_partial_to_clear(){}
-//
+    @Test
+    public void Reveals_opaque_to_partial(){
+
+        Tile sut = Tile.createOpaque(tileValue);
+        sut.destruct();
+        assertThat(sut.getVisibleValue()).isEqualTo("x");
+    }
+
+    @Test
+    public void Reveals_partial_to_clear() {
+        Tile sut = Tile.createPartiallyOpaque(tileValue);
+        sut.destruct();
+        assertThat(sut.getVisibleValue()).isEqualTo(tileValue.toString());
+    }
+
 //    @Test
 //    public void Reveals_opaque_to_partial_to_clear(){}
 }
