@@ -40,7 +40,7 @@ public class TileTests {
     }
 
     @Test
-    public void Returns_x_when_partially_opaque(){
+    public void returns_x_when_partially_opaque(){
 
         Tile sut = Tile.createPartiallyOpaque(tileValue);
 
@@ -48,7 +48,7 @@ public class TileTests {
     }
 
     @Test
-    public void Returns_value_when_not_opaque(){
+    public void returns_value_when_not_opaque(){
 
         Tile sut = Tile.createClear(tileValue);
 
@@ -56,7 +56,7 @@ public class TileTests {
     }
 
     @Test
-    public void Reveals_opaque_to_partial(){
+    public void reveals_opaque_to_partial(){
 
         Tile sut = Tile.createOpaque(tileValue);
         sut.destruct();
@@ -64,14 +64,14 @@ public class TileTests {
     }
 
     @Test
-    public void Reveals_partial_to_clear() {
+    public void reveals_partial_to_clear() {
         Tile sut = Tile.createPartiallyOpaque(tileValue);
         sut.destruct();
         assertThat(sut.getVisibleValue()).isEqualTo(tileValue.toString());
     }
 
     @Test
-    public void Reveals_opaque_to_partial_to_clear(){
+    public void reveals_opaque_to_partial_to_clear(){
 
         // Arrange
         Tile sut = Tile.createOpaque(tileValue);
@@ -82,5 +82,20 @@ public class TileTests {
 
         // Assert
         assertThat(sut.getVisibleValue()).isEqualTo(tileValue.toString());
+    }
+
+    @Test
+    public void destructs_visible_to_empty(){
+
+        // Arrange
+        Tile sut = Tile.createOpaque(tileValue);
+
+        // Act
+        sut.destruct();
+        sut.destruct();
+        sut.destruct();
+
+        // Assert
+        assertThat(sut.getVisibleValue()).isEqualTo("0");
     }
 }

@@ -43,9 +43,11 @@ public class Tile {
             case opaque:
                 this.opacity = TileOpacity.partial;
                 break;
-            default:
+            case partial:
                 this.opacity = TileOpacity.clear;
                 break;
+            default:
+                this.value = 0;
         }
     }
 }

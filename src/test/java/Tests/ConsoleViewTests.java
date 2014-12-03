@@ -3,11 +3,15 @@ package Tests;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.AdditionalAnswers;
 import uk.co.georgenixon.PlummetX.Board;
 import uk.co.georgenixon.PlummetX.ConsoleView;
 import uk.co.georgenixon.PlummetX.Tile;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -70,7 +74,8 @@ public class ConsoleViewTests {
 
         // Arrange
         Tile tileWithValue5 = makeMockTile("5");
-        Board board = makeMockBoard(new Tile[] { tileWithValue5, tileWithValue5});
+        Tile[] tileRow = {tileWithValue5, tileWithValue5};
+        Board board = makeMockBoard(new Tile[][] {tileRow, tileRow});
         sut = new ConsoleView(out, board);
 
         // Act
@@ -105,10 +110,15 @@ public class ConsoleViewTests {
 
     private Board makeMockBoard(Tile[][] tiles) {
         Board board = mock(Board.class);
-        for (Tile[] tilesLine : tiles) {
-            when(board.nextLine()).thenReturn(tilesLine);
+
+        // Add a null tile list at end so iterating while loops terminate.
+        List<Tile[]> answer = new ArrayList<Tile[]>();
+        for (Tile[] line : tiles) {
+            answer.add(line);
         }
-        when(board.nextLine()).thenReturn(null);
+        answer.add(null);
+
+        when(board.nextLine()).thenAnswer(AdditionalAnswers.returnsElementsOf(answer));
         return board;
     }
 
