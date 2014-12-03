@@ -77,4 +77,30 @@ public class ConsoleViewTest {
         // Assert
         verify(out, times(2)).println("|5|5|");
     }
+
+    @Test
+    public void checkerboard() throws Exception {
+
+        //Arrange
+        Board board = mock(Board.class);
+        Tile x = mock(Tile.class);
+        when(x.getVisibleValue()).thenReturn('X');
+        Tile o = mock(Tile.class);
+        when(o.getVisibleValue()).thenReturn('O');
+        Tile[][] boardData = new Tile[][] { {x, o, x}, {o, x, o}, {x, o, x}};
+        when(board.nextLine())
+                .thenReturn(boardData[0])
+                .thenReturn(boardData[1])
+                .thenReturn(boardData[2])
+                .thenReturn(null);
+
+        sut = new ConsoleView(out, board);
+
+        // Act
+        sut.render();
+
+        // Assert
+        verify(out, times(2)).println("|X|O|X|");
+        verify(out).println("|O|X|O|");
+    }
 }
