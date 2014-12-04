@@ -10,7 +10,7 @@ public class Board {
     private Tile[][] tiles;
     private int tileIterationCursor = 0;
 
-    public Board(int sizeX, int sizeY, int maxTileValue) {
+    private Board(int sizeX, int sizeY, int maxTileValue) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.maxTileValue = maxTileValue;
@@ -35,4 +35,23 @@ public class Board {
     public int columnWidth() {
         return Integer.toString(maxTileValue).length();
     }
+
+    public static Board createBlank(int sizeX, int sizeY, int maxTileValue) {
+        return new Board(sizeX, sizeY, maxTileValue);
+    }
+
+    public void addTile(int i, Tile insertedTile) throws ColumnFullException {
+        if (insertedTile.getValue() == 100000) {
+            throw new IllegalArgumentException("Max tile value on this board is 1. This tile's value is 100000.");
+        }
+        if (tiles[0][0].isBlank() == false) {
+            throw new ColumnFullException("Column 0 is full.");
+        }
+        tiles[0][0] = Tile.createOpaque(1);
+    }
+
+//    public static Board createHardcore(int sizeX, int sizeY, int maxTileValue) {
+//        Board board = new Board(sizeX, sizeY, maxTileValue);
+//        board.addTile()
+//    }
 }

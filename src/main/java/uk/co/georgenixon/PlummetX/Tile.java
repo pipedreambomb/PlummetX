@@ -80,4 +80,12 @@ public class Tile {
         result = 31 * result + value.hashCode();
         return result;
     }
+
+    public boolean isBlank() {
+        return value == 0 && opacity == TileOpacity.clear;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
 }
