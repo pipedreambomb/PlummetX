@@ -2,15 +2,21 @@ package Tests;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import uk.co.georgenixon.PlummetX.Board;
 import uk.co.georgenixon.PlummetX.ColumnFullException;
 import uk.co.georgenixon.PlummetX.Tile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.runners.Parameterized.*;
 
+@RunWith(Parameterized.class)
 public class BoardTests {
 
     @Test
@@ -96,12 +102,28 @@ public class BoardTests {
         }
     }
 
+    private int tileValue;
+    private int maxValue;
+
+    public BoardTests(int tileValue, int maxValue){
+
+        this.tileValue = tileValue;
+        this.maxValue = maxValue;
+    }
+
+    @Parameters
+    public static Collection<Integer[]> tileValues(){
+        return Arrays.asList(
+                new Integer[]{2,1},
+                new Integer[]{6, 2},
+                new Integer[]{100000, 2});
+    }
     @Test
     public void addTile_throws_error_when_value_is_over_limit() throws Exception {
 
         Board sut = Board.createBlank(1, 1, 1);
         try {
-            sut.addTile(0, Tile.createOpaque(100000));
+            sut.addTile(maxValue, Tile.createOpaque(tileValue));
             fail("IllegalArgument expected because tile value is higher than board's max value.");
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isEqualTo(

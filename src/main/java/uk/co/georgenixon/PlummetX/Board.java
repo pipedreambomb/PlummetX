@@ -41,7 +41,7 @@ public class Board {
     }
 
     public void addTile(int i, Tile insertedTile) throws ColumnFullException {
-        if (insertedTile.getValue() == 100000) {
+        if (insertedTile.getValue() > maxTileValue) {
             throw new IllegalArgumentException("Max tile value on this board is 1. This tile's value is 100000.");
         }
         if (tiles[0][0].isBlank() == false) {
