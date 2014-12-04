@@ -105,7 +105,7 @@ public class TileTests {
 
     @Test
     public void when_tile_is_empty_visible_value_is_space(){
-        Tile sut = Tile.createEmpty();
+        Tile sut = Tile.createBlank();
 
         assertTileIsDisplayingAsEmpty(sut);
     }

@@ -7,13 +7,13 @@ public class Tile {
     private TileOpacity opacity;
     private Integer value;
 
-    public Tile(Integer value, TileOpacity opacity) {
+    private Tile(Integer value, TileOpacity opacity) {
         this.value = value;
         this.opacity = opacity;
     }
 
 
-    public static Tile createEmpty() {
+    public static Tile createBlank() {
         return new Tile(0, TileOpacity.clear);
     }
 
@@ -59,5 +59,25 @@ public class Tile {
 
     boolean isEmpty() {
         return this.value == 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tile tile = (Tile) o;
+
+        if (opacity != tile.opacity) return false;
+        if (!value.equals(tile.value)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = opacity.hashCode();
+        result = 31 * result + value.hashCode();
+        return result;
     }
 }
